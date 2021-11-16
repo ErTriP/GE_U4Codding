@@ -1,7 +1,13 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "GE_UECoddingCharacter.h"
+
+#include "GameFramework/Actor.h"
+
+#include "BaseFruitC.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
+#include "InventoryItemC.h"
+#include "InventorySystemC.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -43,6 +49,12 @@ AGE_UECoddingCharacter::AGE_UECoddingCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	InventoryComponent = CreateDefaultSubobject<UInventorySystemC>(TEXT("Inventory"));
+
+	MaxHealth = 100;
+	CurrentHealth = MaxHealth;
+	Stamina = 100;
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -76,6 +88,34 @@ void AGE_UECoddingCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AGE_UECoddingCharacter::OnResetVR);
 }
 
+
+void AGE_UECoddingCharacter::UseItem(UInventoryItemC* Item)
+{
+	if (Item)
+	{
+		Item->Use(this);
+		Item->OnUse(this); //BP
+	}
+}
+
+void AGE_UECoddingCharacter::PickItem(UInventoryItemC* Item)
+{
+	InventoryComponent->AddItem(Item);
+}
+
+void AGE_UECoddingCharacter::DropItem(UInventoryItemC* Item)
+{
+	InventoryComponent->RemoveItem(Item);
+	const FTransform SpawnLocAndRotation(FVector(GetActorLocation()+GetActorForwardVector()*300));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, SpawnLocAndRotation.ToString());
+	if (GetWorld())
+	{
+		ABaseFruitC* BaseFruit = GetWorld()->SpawnActorDeferred<ABaseFruitC>(ABaseFruitC::StaticClass(), SpawnLocAndRotation );
+		BaseFruit->SpawnConstract(Item);
+		BaseFruit->FinishSpawning(SpawnLocAndRotation);
+	} 
+	
+}
 
 void AGE_UECoddingCharacter::OnResetVR()
 {

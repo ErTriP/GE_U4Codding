@@ -18,8 +18,12 @@ class AGE_UECoddingCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+	
 public:
 	AGE_UECoddingCharacter();
+
+	UPROPERTY(EditAnywhere)
+	class UInventorySystemC* InventoryComponent;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -30,10 +34,22 @@ public:
 	float BaseLookUpRate;
 
 	UPROPERTY(BlueprintReadWrite)
-	int32 Health;
+	int32 CurrentHealth;
+
+	UPROPERTY(BlueprintReadWrite)
+	int32 MaxHealth;
 
 	UPROPERTY(BlueprintReadWrite)
 	int32 Stamina;
+
+	UFUNCTION(BlueprintCallable)
+	void UseItem(class UInventoryItemC* Item);
+	
+	UFUNCTION(BlueprintCallable)
+	void PickItem(class UInventoryItemC* Item);
+
+	UFUNCTION(BlueprintCallable)
+	void DropItem(class UInventoryItemC* Item);
 
 protected:
 
