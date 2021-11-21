@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BaseWeaponC.h"
 #include "GameFramework/Character.h"
 #include "GE_UECoddingCharacter.generated.h"
 
@@ -18,10 +19,15 @@ class AGE_UECoddingCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
 	
 public:
+	
+	UPROPERTY(BlueprintReadWrite)
+	class ABaseWeaponC* BaseWeapon;
+	
 	AGE_UECoddingCharacter();
-
+	
 	UPROPERTY(EditAnywhere)
 	class UInventorySystemC* InventoryComponent;
 
@@ -50,6 +56,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void DropItem(class UInventoryItemC* Item);
+
+	UFUNCTION()
+	void SpawnWeapon();
 
 protected:
 
@@ -80,6 +89,12 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
+	UFUNCTION()
+	void Reload();
+
+	UFUNCTION()
+	void Fire();
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -90,5 +105,7 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	virtual void BeginPlay() override;
 };
+
 
