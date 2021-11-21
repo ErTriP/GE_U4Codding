@@ -13,6 +13,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_4.27/Engine/Source/ThirdParty/PhysX3/APEX_1.4/include/ApexDefs.h" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -150,6 +158,11 @@
       <workItem from="1637013902716" duration="3405000" />
       <workItem from="1637067575866" duration="2474000" />
       <workItem from="1637071175722" duration="8785000" />
+      <workItem from="1637418449844" duration="947000" />
+      <workItem from="1637419818731" duration="4257000" />
+      <workItem from="1637447339056" duration="1508000" />
+      <workItem from="1637495262487" duration="11000000" />
+      <workItem from="1637506509969" duration="2267000" />
     </task>
     <servers />
   </component>

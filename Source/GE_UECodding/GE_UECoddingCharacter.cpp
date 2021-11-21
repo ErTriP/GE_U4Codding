@@ -68,6 +68,10 @@ void AGE_UECoddingCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AGE_UECoddingCharacter::Fire);
+	
+	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &AGE_UECoddingCharacter::Reload);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &AGE_UECoddingCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AGE_UECoddingCharacter::MoveRight);
@@ -86,6 +90,12 @@ void AGE_UECoddingCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AGE_UECoddingCharacter::OnResetVR);
+}
+
+void AGE_UECoddingCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	SpawnWeapon();
 }
 
 
@@ -115,6 +125,25 @@ void AGE_UECoddingCharacter::DropItem(UInventoryItemC* Item)
 		BaseFruit->FinishSpawning(SpawnLocAndRotation);
 	} 
 	
+}
+
+void AGE_UECoddingCharacter::SpawnWeapon()
+{
+	if (GetWorld())
+	{
+		FVector Location(0.0f, 0.0f, 0.0f);
+		FRotator Rotation(0.0f, 0.0f, 0.0f);
+		FActorSpawnParameters SpawnInfo;
+		BaseWeapon = GetWorld()->SpawnActor<ABaseWeaponC>(Location, Rotation, SpawnInfo);
+
+		FName socket = TEXT("GunHandle");
+
+		USkeletalMeshComponent* mesh = GetMesh();
+		
+		FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+
+		BaseWeapon->AttachToComponent(mesh, rules, socket);
+	}	
 }
 
 void AGE_UECoddingCharacter::OnResetVR()
@@ -177,4 +206,14 @@ void AGE_UECoddingCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void AGE_UECoddingCharacter::Reload()
+{
+	BaseWeapon->Reload_Implementation();
+}
+
+void AGE_UECoddingCharacter::Fire()
+{
+	BaseWeapon->Fire();
 }
