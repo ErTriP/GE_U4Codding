@@ -10,14 +10,7 @@ void UHealItemC::Use(AGE_UECoddingCharacter* Character)
 {
 	if(Character)
 	{
-		if (Character->CurrentHealth + HealAmount <= Character->MaxHealth)
-		{
-			Character->CurrentHealth += HealAmount;
-		}else
-		{
-			Character->CurrentHealth = Character->MaxHealth;
-		}
-
 		Character->InventoryComponent->RemoveItem(this);
+		Character->OnPlayerUseHeal.ExecuteIfBound(HealPerSecond,HealRate);
 	}
 }
