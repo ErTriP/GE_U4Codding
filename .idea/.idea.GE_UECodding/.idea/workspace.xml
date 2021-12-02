@@ -4,7 +4,10 @@
     <projectFile>Intermediate/ProjectFiles/GE_UECodding.vcxproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a44975a-dbd9-4d0a-8c0d-976e3607f49b" name="Changes" comment="" />
+    <list default="true" id="2a44975a-dbd9-4d0a-8c0d-976e3607f49b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GE_UECodding/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GE_UECodding/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,7 +173,9 @@
       <workItem from="1638045402396" duration="12926000" />
       <workItem from="1638058656979" duration="921000" />
       <workItem from="1638100869917" duration="2012000" />
-      <workItem from="1638103671760" duration="1853000" />
+      <workItem from="1638103671760" duration="2441000" />
+      <workItem from="1638456258658" duration="890000" />
+      <workItem from="1638460175185" duration="6227000" />
     </task>
     <servers />
   </component>
