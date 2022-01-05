@@ -15,7 +15,10 @@ class GE_UECODDING_API UHealItemC : public UInventoryItemC
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly)
-	int32 HealAmount;
+	int32 HealPerSecond;
+
+	UPROPERTY(EditDefaultsOnly)
+	int32 HealRate;
 
 	virtual void Use(AGE_UECoddingCharacter* Character) override;
 	

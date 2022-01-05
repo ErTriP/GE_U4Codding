@@ -7,6 +7,12 @@
 #include "GameFramework/Character.h"
 #include "GE_UECoddingCharacter.generated.h"
 
+class ACharacterFollowActorC;
+
+DECLARE_DELEGATE_TwoParams(FOnPlayerUseHeal, int32, int32);
+DECLARE_EVENT_OneParam(AGE_UECoddingCharacter, FOnPlayerTakeDamage, int32);
+DECLARE_EVENT(AGE_UECoddingCharacter, FOnPlayerDestroy);
+
 UCLASS(config=Game)
 class AGE_UECoddingCharacter : public ACharacter
 {
@@ -21,7 +27,18 @@ class AGE_UECoddingCharacter : public ACharacter
 	class UCameraComponent* FollowCamera;
 
 	
+
+	
 public:
+	
+	FOnPlayerTakeDamage OnPlayerTakeDamage;
+	FOnPlayerDestroy OnPlayerDestroy;
+	
+	UPROPERTY(BlueprintReadWrite)
+	class ACharacterFollowActorC* FollowActor;
+
+	UPROPERTY(BlueprintReadWrite)
+	class USpringArmComponent* ArmActorToDestroy;
 	
 	UPROPERTY(BlueprintReadWrite)
 	class ABaseWeaponC* BaseWeapon;
@@ -48,6 +65,13 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	int32 Stamina;
 
+	
+	UPROPERTY(Transient)
+	int32 HealingRate;
+
+	UFUNCTION()
+	void DestroyActor();
+
 	UFUNCTION(BlueprintCallable)
 	void UseItem(class UInventoryItemC* Item);
 	
@@ -58,7 +82,7 @@ public:
 	void DropItem(class UInventoryItemC* Item);
 
 	UFUNCTION()
-	void SpawnWeapon();
+	void SpawnChildActors();
 
 protected:
 
@@ -93,7 +117,22 @@ protected:
 	void Reload();
 
 	UFUNCTION()
+	void Damage(int32 DamageAmount);
+
+	UFUNCTION()
 	void Fire();
+
+	UFUNCTION()
+	void Healing(int32 HealPerSecond);
+
+	UFUNCTION()
+	void Damaging(int32 DamagePerSecond);
+
+	UFUNCTION()
+	void LongHealing(int32 HealPerSecond, int32 Rate);
+	
+	FTimerHandle HealTimer;
+	FTimerDelegate HealTimerDelegate;
 
 protected:
 	// APawn interface
@@ -105,7 +144,11 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	
 	virtual void BeginPlay() override;
+	FOnPlayerUseHeal OnPlayerUseHeal;
 };
+
+
 
 

@@ -13,6 +13,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "CharacterFollowActorC.h"
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -44,6 +45,11 @@ AGE_UECoddingCharacter::AGE_UECoddingCharacter()
 	CameraBoom->TargetArmLength = 300.0f; // The camera follows at this distance behind the character	
 	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
+	ArmActorToDestroy = CreateDefaultSubobject<USpringArmComponent>(TEXT("ArmToActor"));
+	ArmActorToDestroy->SetupAttachment(RootComponent);
+	ArmActorToDestroy->TargetArmLength = 100.0f; // The camera follows at this distance behind the character	
+	ArmActorToDestroy->bUsePawnControlRotation = true;
+	
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
@@ -54,6 +60,8 @@ AGE_UECoddingCharacter::AGE_UECoddingCharacter()
 	MaxHealth = 100;
 	CurrentHealth = MaxHealth;
 	Stamina = 100;
+
+	OnPlayerUseHeal.BindUFunction(this, "LongHealing");
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
@@ -92,12 +100,28 @@ void AGE_UECoddingCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AGE_UECoddingCharacter::OnResetVR);
 }
 
+void AGE_UECoddingCharacter::Damage(int32 DamageAmount)
+{
+	CurrentHealth -= DamageAmount;
+	OnPlayerTakeDamage.Broadcast(DamageAmount);
+	if (CurrentHealth <= 0)
+	{
+		OnPlayerDestroy.Broadcast();
+	}
+}
+
 void AGE_UECoddingCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnWeapon();
+	SpawnChildActors();
+	OnPlayerDestroy.AddUFunction(this, "DestroyActor");
+	
 }
 
+void AGE_UECoddingCharacter::DestroyActor()
+{
+	Destroy();
+}
 
 void AGE_UECoddingCharacter::UseItem(UInventoryItemC* Item)
 {
@@ -127,7 +151,7 @@ void AGE_UECoddingCharacter::DropItem(UInventoryItemC* Item)
 	
 }
 
-void AGE_UECoddingCharacter::SpawnWeapon()
+void AGE_UECoddingCharacter::SpawnChildActors()
 {
 	if (GetWorld())
 	{
@@ -143,7 +167,19 @@ void AGE_UECoddingCharacter::SpawnWeapon()
 		FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
 
 		BaseWeapon->AttachToComponent(mesh, rules, socket);
-	}	
+	}
+
+	if (GetWorld())
+	{
+		FVector Location(0.0f, 0.0f, 0.0f);
+		FRotator Rotation(0.0f, 0.0f, 0.0f);
+		FActorSpawnParameters SpawnInfo;
+		FollowActor = GetWorld()->SpawnActor<ACharacterFollowActorC>(Location, Rotation, SpawnInfo);
+		
+		FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+
+		FollowActor->AttachToComponent(ArmActorToDestroy, rules);
+	} 
 }
 
 void AGE_UECoddingCharacter::OnResetVR()
@@ -217,3 +253,52 @@ void AGE_UECoddingCharacter::Fire()
 {
 	BaseWeapon->Fire();
 }
+
+void AGE_UECoddingCharacter::Healing(int32 HealPerSecond)
+{
+	HealingRate--;
+	if (HealingRate < 0)
+	{
+		GetWorldTimerManager().ClearTimer(HealTimer);
+	}else
+	{
+		CurrentHealth += HealPerSecond;
+		if (CurrentHealth >= MaxHealth)
+		{
+			CurrentHealth = MaxHealth;
+			GetWorldTimerManager().ClearTimer(HealTimer);
+		}
+	}
+	
+}
+
+void AGE_UECoddingCharacter::Damaging(int32 DamagePerSecond)
+{
+	HealingRate--;
+	if (HealingRate < 0)
+	{
+		GetWorldTimerManager().ClearTimer(HealTimer);
+	}else
+	{
+		Damage(DamagePerSecond);
+	}
+	
+}
+
+void AGE_UECoddingCharacter::LongHealing(int32 HealPerSecond, int32 Rate)
+{
+	if(!HealTimer.IsValid())
+	{
+		HealingRate = Rate;
+		if (HealPerSecond > 0)
+		{
+			HealTimerDelegate.BindUFunction(this, "Healing", HealPerSecond);
+			GetWorldTimerManager().SetTimer(HealTimer, HealTimerDelegate, 1.f, true);
+		}else
+		{
+			HealTimerDelegate.BindUFunction(this, "Damaging", HealPerSecond*-1);
+			GetWorldTimerManager().SetTimer(HealTimer, HealTimerDelegate, 1.f, true);
+		}
+	}
+}
+
