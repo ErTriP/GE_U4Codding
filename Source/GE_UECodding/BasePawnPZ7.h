@@ -7,6 +7,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "BasePawnPZ7.generated.h"
 
+DECLARE_DELEGATE_OneParam(FOnCubeSpawned, TArray<AActor*> &)
+
 UCLASS()
 class GE_UECODDING_API ABasePawnPZ7 : public APawn
 {
@@ -31,17 +33,27 @@ public:
 	
 	ABasePawnPZ7();
 
+	UPROPERTY(BlueprintReadOnly)
+	TArray<AActor*> SpawnedActors;
+
+	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AActor> BPCube;
+	
 protected:
 
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
+	void SpawnActor();
+	void RemoveSpawnedActors();
 	
 	virtual void BeginPlay() override;
 
 	UPROPERTY()
 	APlayerController* PC;
 
-public:	
+	FTimerHandle TH;
+
+public:
 	
 	virtual void Tick(float DeltaTime) override;
 

@@ -1,6 +1,6 @@
 
 #include "BasePawnPZ7.h"
-
+#include "Chaos/AABB.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
 ABasePawnPZ7::ABasePawnPZ7()
@@ -31,6 +31,34 @@ ABasePawnPZ7::ABasePawnPZ7()
 	bUseControllerRotationPitch = true;
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;
+	
+}
+
+void ABasePawnPZ7::SpawnActor()
+{
+	int32 Num = FMath::RandRange(1, 100);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Num %d"), Num));
+	FVector Pos = GetActorLocation();
+	FRotator Rot = GetActorRotation();
+	FActorSpawnParameters Parameters;
+	
+	for (int i = 1; i < Num + 1; i++)
+	{
+		Pos += GetActorForwardVector() * 150 * i;
+		SpawnedActors.Add(GetWorld()->SpawnActor(BPCube.Get(), &Pos, &Rot, Parameters));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Pos.ToString());
+	}
+
+	GetWorldTimerManager().SetTimer(TH, this, &ABasePawnPZ7::RemoveSpawnedActors, 0.0001, false, 5.f);
+}
+
+void ABasePawnPZ7::RemoveSpawnedActors()
+{
+	for (auto SpawnedActor: SpawnedActors)
+	{
+		SpawnedActor->Destroy();
+	}
+	SpawnedActors.Empty();
 }
 
 void ABasePawnPZ7::MoveForward(float AxisValue)
@@ -71,5 +99,6 @@ void ABasePawnPZ7::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABasePawnPZ7::MoveRight);
 	PlayerInputComponent->BindAxis("LookUp", this, &ABasePawnPZ7::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("Turn", this, &ABasePawnPZ7::AddControllerYawInput);
+	PlayerInputComponent->BindAction("SpawnActor", IE_Pressed, this, &ABasePawnPZ7::SpawnActor);
 }
 

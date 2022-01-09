@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a44975a-dbd9-4d0a-8c0d-976e3607f49b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/PZ7.umap" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/PZ7_BuiltData.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Cameras/BP_SpyCamera.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameMods/GM_PZ7.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Materials/PZ7/M_Base.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Materials/PZ7/M_Caught_Inst1.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Materials/PZ7/M_Normal_Inst.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Pawns/BP_PawnPZ7.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/GE_UECodding/MyCameraActor.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/GE_UECodding/MyCameraActor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/BP_Cube.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GE_UECodding/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GE_UECodding/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PZ7.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PZ7.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/PZ7_BuiltData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/PZ7_BuiltData.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Pawns/BP_PawnPZ7.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Pawns/BP_PawnPZ7.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +32,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_4.27/Engine/Source/ThirdParty/PhysX3/APEX_1.4/include/ApexDefs.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.17763.0/ucrt/stdlib.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="20xLhVhJ2tFbj9v3iiEE1KpQjwk" />
   <component name="ProjectViewState">
@@ -182,6 +176,7 @@
       <workItem from="1641648798691" duration="1351000" />
       <workItem from="1641670592154" duration="4144000" />
       <workItem from="1641675754763" duration="8275000" />
+      <workItem from="1641742525517" duration="12111000" />
     </task>
     <servers />
   </component>
