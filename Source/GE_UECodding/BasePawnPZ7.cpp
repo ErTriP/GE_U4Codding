@@ -61,6 +61,13 @@ void ABasePawnPZ7::RemoveSpawnedActors()
 	SpawnedActors.Empty();
 }
 
+void ABasePawnPZ7::ActorTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "WWWW");
+	HealthData.Health -= Damage;
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Num %d"), HealthData.Health));
+}
+
 void ABasePawnPZ7::MoveForward(float AxisValue)
 {
 	if (AxisValue != 0)
@@ -81,6 +88,8 @@ void ABasePawnPZ7::BeginPlay()
 {
 	Super::BeginPlay();
 	PC = GetWorld()->GetFirstPlayerController();
+	HealthData.Health = 100;
+	OnTakeAnyDamage.AddDynamic(this, &ABasePawnPZ7::ActorTakeDamage);
 	
 }
 

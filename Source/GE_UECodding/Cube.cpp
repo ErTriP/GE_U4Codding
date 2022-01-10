@@ -18,7 +18,22 @@ ACube::ACube()
 void ACube::BeginPlay()
 {
 	Super::BeginPlay();
+	Status = EStatus::Active;
 	
+	GetWorldTimerManager().SetTimer(TH, this, &ACube::ChangeStatus, 2.f, true, 2.f);
+}
+
+void ACube::ChangeStatus()
+{
+	if (Status == EStatus::Active)
+	{
+		StaticMeshComp->SetMaterial(0, DeactiveMat);
+		Status = EStatus::Deactive;
+	}else
+	{
+		StaticMeshComp->SetMaterial(0, ActiveMat);
+		Status = EStatus::Active;
+	}
 }
 
 // Called every frame

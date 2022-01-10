@@ -9,6 +9,19 @@
 
 DECLARE_DELEGATE_OneParam(FOnCubeSpawned, TArray<AActor*> &)
 
+USTRUCT()
+struct FHealthData
+{
+	GENERATED_USTRUCT_BODY()
+
+	int32 Health;
+	
+	FHealthData()
+	{
+		Health = 100;
+	}
+};
+
 UCLASS()
 class GE_UECODDING_API ABasePawnPZ7 : public APawn
 {
@@ -38,6 +51,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<class AActor> BPCube;
+
+	UPROPERTY(EditAnywhere)
+	FHealthData HealthData;
 	
 protected:
 
@@ -45,6 +61,7 @@ protected:
 	void MoveRight(float AxisValue);
 	void SpawnActor();
 	void RemoveSpawnedActors();
+	void ActorTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 	
 	virtual void BeginPlay() override;
 
