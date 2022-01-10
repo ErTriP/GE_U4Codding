@@ -4,7 +4,13 @@
     <projectFile>Intermediate/ProjectFiles/GE_UECodding.vcxproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a44975a-dbd9-4d0a-8c0d-976e3607f49b" name="Changes" comment="" />
+    <list default="true" id="2a44975a-dbd9-4d0a-8c0d-976e3607f49b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Content/PZ_8.umap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/PZ_8_BuiltData.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GE_UECodding/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GE_UECodding/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/GE_UECodding/BasePawnPZ7.h" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +29,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_4.27/Engine/Source/ThirdParty/PhysX3/APEX_1.4/include/ApexDefs.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.17763.0/ucrt/stdlib.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="20xLhVhJ2tFbj9v3iiEE1KpQjwk" />
   <component name="ProjectViewState">
@@ -163,6 +170,12 @@
       <workItem from="1637447339056" duration="1508000" />
       <workItem from="1637495262487" duration="11000000" />
       <workItem from="1637506509969" duration="2267000" />
+      <workItem from="1641648798691" duration="1351000" />
+      <workItem from="1641670592154" duration="4144000" />
+      <workItem from="1641675754763" duration="8275000" />
+      <workItem from="1641742525517" duration="12111000" />
+      <workItem from="1641772080703" duration="6974000" />
+      <workItem from="1641818054768" duration="1965000" />
     </task>
     <servers />
   </component>
