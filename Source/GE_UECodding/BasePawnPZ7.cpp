@@ -63,9 +63,9 @@ void ABasePawnPZ7::RemoveSpawnedActors()
 
 void ABasePawnPZ7::ActorTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "WWWW");
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, "Actor Taken Damage");
 	HealthData.Health -= Damage;
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Num %d"), HealthData.Health));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Damage : %d"), HealthData.Health));
 }
 
 void ABasePawnPZ7::MoveForward(float AxisValue)

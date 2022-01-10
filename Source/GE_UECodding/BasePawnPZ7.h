@@ -54,6 +54,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	FHealthData HealthData;
+
+	UFUNCTION()
+	void ActorTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 	
 protected:
 
@@ -61,7 +64,7 @@ protected:
 	void MoveRight(float AxisValue);
 	void SpawnActor();
 	void RemoveSpawnedActors();
-	void ActorTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+	
 	
 	virtual void BeginPlay() override;
 
